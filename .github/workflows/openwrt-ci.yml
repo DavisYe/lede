@@ -49,7 +49,9 @@ jobs:
 
       - name: Load custom config
         run: |
+          ls && pwd
           cp configs/r2s.config .config
+
 
       # - name: Generate configuration file
       #   run: make target/linux/mediatek/mt7621/config
