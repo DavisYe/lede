@@ -42,14 +42,18 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v4
 
+      - name: Load custom config
+        run: |
+          cp configs/r2s.config .config
+
       - name: Update feeds
         run: |
-          sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
+          # sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: make target/linux/mediatek/mt7621/config
 
       - name: Download packages
         run: make download -j16
