@@ -1,4 +1,4 @@
-# 
+#
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 # Copyright (C) 2019 P3TERX
@@ -16,9 +16,7 @@ permissions:
   contents: read
 
 jobs:
-
   build_openwrt:
-
     name: Build OpenWrt Firmware
 
     runs-on: ubuntu-22.04
@@ -43,18 +41,18 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v4
 
-      - name: Load custom config
-        run: |
-          cp configs/r2s.config .config
-
       - name: Update feeds
         run: |
           # sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Generate configuration file
-        run: make target/linux/mediatek/mt7621/config
+      - name: Load custom config
+        run: |
+          cp configs/r2s.config .config
+
+      # - name: Generate configuration file
+      #   run: make target/linux/mediatek/mt7621/config
 
       - name: Download packages
         run: make download -j16
